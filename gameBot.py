@@ -2,7 +2,7 @@ import random
 import math
 
 lower = int(input("Enter lower bound: - "))
-upper = int (input("Enter higher bound: - "))
+upper = int(input("Enter higher bound: - "))
 
 x = random.randint(lower, upper)
 
@@ -12,36 +12,54 @@ while unlimitedGuesses != "yes" and unlimitedGuesses != "no":
     print("You have to answer with yes or no")
     unlimitedGuesses = input("Unlimited guesses? (yes/no): - ")
 
-if unlimitedGuesses == "no":
-    allowedGuess = int(input("Enter the number of guesses for the bot: - "))
-elif unlimitedGuesses == "yes":
-    allowedGuess = 1000
+guessCount = 0
+
 
 def botGuess():
     return round(lower + ((upper - lower)/2))
 
-guessCount = 0
 
-while guessCount < allowedGuess:
-    guessCount += 1
+def guessFunc():
     guess = botGuess()
     if x == guess:
         if x == 1:
-             print("Bot guessed the number ", x, " in 1 try")   
+            print("Bot guessed the number ", x, " in 1 try")
         else:
-            print("Bot guessed the number", x ,"in ",
-                guessCount, " tries")        
-        break
+            print("Bot guessed the number", x, "in ",
+                  guessCount, " tries")
+        return True
     elif x > guess:
-        print("Bot guessed ", guess ,", it's too small!")
+        print("Bot guessed ", guess, ", it's too small!")
+        global lower
         lower = guess
+        return False
     elif x < guess:
-        print("Bot guessed ", guess ,", it's too high!")
+        print("Bot guessed ", guess, ", it's too high!")
+        global upper
         upper = guess
+        return False
+
+
+allowedGuess = 0
+
+if unlimitedGuesses == "no":
+    allowedGuess = int(input("Enter the number of guesses for the bot: - "))
+    while guessCount < allowedGuess:
+        guessCount += 1
+        if guessFunc():
+            break
+elif unlimitedGuesses == "yes":
+    while not(1):
+        guessCount += 1
+        print(guessFunc())
 
 if guessCount >= allowedGuess:
-        print("\nThe number is %d" % x)
+    print("\nThe number is %d" % x)
+    if unlimitedGuesses == "no":
         if (allowedGuess == 1):
             print("\tAnd the bot coulnd't figure it out with the one try he had")
-        elif:    
-            print("\tAnd the bot coulnd't figure it out with the", allowedGuess ," tries he had")
+        else:
+            print("\tAnd the bot coulnd't figure it out with the",
+                  allowedGuess, " tries he had")
+    else:
+        print("\tAnd the bot figured it out with unlimited tries in " , guessCount, " guesses")
