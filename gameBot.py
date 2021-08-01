@@ -44,14 +44,12 @@ allowedGuess = 0
 
 if unlimitedGuesses == "no":
     allowedGuess = int(input("Enter the number of guesses for the bot: - "))
-    while guessCount < allowedGuess:
-        guessCount += 1
-        if guessFunc():
-            break
-elif unlimitedGuesses == "yes":
-    while not(1):
-        guessCount += 1
-        print(guessFunc())
+else: allowedGuess = 9223372036854775807
+
+while guessCount < allowedGuess:
+    guessCount += 1
+    if guessFunc():
+        break
 
 if guessCount >= allowedGuess:
     print("\nThe number is %d" % x)
@@ -59,7 +57,7 @@ if guessCount >= allowedGuess:
         if (allowedGuess == 1):
             print("\tAnd the bot coulnd't figure it out with the one try he had")
         else:
-            print("\tAnd the bot coulnd't figure it out with the",
+            print("And the bot coulnd't figure it out with the",
                   allowedGuess, " tries he had")
     else:
         print("\tAnd the bot figured it out with unlimited tries in " , guessCount, " guesses")
