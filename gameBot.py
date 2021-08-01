@@ -4,7 +4,7 @@ import math
 lower = int(input("Enter lower bound: - "))
 upper = int(input("Enter higher bound: - "))
 
-x = random.randint(lower, upper)
+x = int(input("Enter number to guess: - "))
 
 unlimitedGuesses = input("Unlimited guesses? (yes/no): - ")
 
@@ -22,19 +22,19 @@ def botGuess():
 def guessFunc():
     guess = botGuess()
     if x == guess:
-        if x == 1:
+        if guessCount == 1:
             print("Bot guessed the number ", x, " in 1 try")
         else:
             print("Bot guessed the number", x, "in ",
                   guessCount, " tries")
         return True
     elif x > guess:
-        print("Bot guessed ", guess, ", it's too small!")
+        print("Bot guessed ", guess, "it's too small!")
         global lower
         lower = guess
         return False
     elif x < guess:
-        print("Bot guessed ", guess, ", it's too high!")
+        print("Bot guessed ", guess, "it's too high!")
         global upper
         upper = guess
         return False
@@ -44,7 +44,8 @@ allowedGuess = 0
 
 if unlimitedGuesses == "no":
     allowedGuess = int(input("Enter the number of guesses for the bot: - "))
-else: allowedGuess = 9223372036854775807
+else:
+    allowedGuess = 9223372036854775807
 
 while guessCount < allowedGuess:
     guessCount += 1
@@ -60,4 +61,5 @@ if guessCount >= allowedGuess:
             print("And the bot coulnd't figure it out with the",
                   allowedGuess, " tries he had")
     else:
-        print("\tAnd the bot figured it out with unlimited tries in " , guessCount, " guesses")
+        print("\tAnd the bot figured it out with unlimited tries in ",
+              guessCount, " guesses")
